@@ -2,17 +2,17 @@ interface BlogCardProps {
   authorName: string;
   title: string;
   content: string;
-  publishedDate: string;
+  publishedDate?: string;
 }
 
 function BlogCard({
   authorName,
   title,
   content,
-  publishedDate,
+  publishedDate = "23 feb 2024",
 }: BlogCardProps) {
   return (
-    <div className="p-4 border-b border-slate-200 pb-2">
+    <div className="p-4 border-b border-slate-200 pb-2 ">
       <div className="flex items-center mb-4">
         <div className="flex flex-col justify-center">
           <AvatorComponent name={authorName} />

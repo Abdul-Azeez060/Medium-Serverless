@@ -76,7 +76,20 @@ blog.put("/", async (c) => {
 blog.get("/bulk", async (c) => {
   try {
     const prisma = c.get("prisma");
-    const posts = await prisma.post.find({});
+    const posts = await prisma.post.findMany({
+      select: {
+        content: true,
+        id: true,
+        title: true,
+        published: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    console.log(posts);
     return c.json({
       posts,
     });

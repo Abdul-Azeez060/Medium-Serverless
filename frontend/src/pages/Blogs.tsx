@@ -1,30 +1,28 @@
 import Appbar from "../components/Appbar";
 import BlogCard from "../components/BlogCard";
+import useBlogs from "../hooks/useBlogs";
 
 function Blogs() {
-  return (
+  // 1. state var
+  // 2. context blogs []
+  // 3. custom hooks (selected)
+  const { loading, blogs } = useBlogs();
+  console.log(blogs, "these are blogs");
+  return loading ? (
+    <div>loading...</div>
+  ) : (
     <div>
       <Appbar />
       <div className="flex justify-center h-screen items-center">
-        <div className="max-w-xl">
-          <BlogCard
-            authorName="Abdul Azeez"
-            title="How an ugly single website makes 5000$ a Month with Affiliate Marketing. "
-            publishedDate="4 Aug 2024"
-            content="No need to create a fancy and beautiful website with hundreds of pages to make money online - Making money online is a dream for manage "
-          />
-          <BlogCard
-            authorName="Abdul Azeez"
-            title="How an ugly single website makes 5000$ a Month with Affiliate Marketing. "
-            publishedDate="4 Aug 2024"
-            content="No need to create a fancy and beautiful website with hundreds of pages to make money online - Making money online is a dream for manage "
-          />
-          <BlogCard
-            authorName="Abdul Azeez"
-            title="How an ugly single website makes 5000$ a Month with Affiliate Marketing. "
-            publishedDate="4 Aug 2024"
-            content="No need to create a fancy and beautiful website with hundreds of pages to make money online - Making money online is a dream for manage "
-          />
+        <div>
+          {blogs.map((blog) => (
+            <BlogCard
+              key={blog.id}
+              authorName={blog.author.name}
+              title={blog.title}
+              content={blog.content}
+            />
+          ))}
         </div>
       </div>
     </div>

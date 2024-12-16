@@ -1,36 +1,42 @@
+import { Link } from "react-router-dom";
+
 interface BlogCardProps {
   authorName: string;
   title: string;
   content: string;
   publishedDate?: string;
+  id: number;
 }
 
 function BlogCard({
+  id,
   authorName,
   title,
   content,
   publishedDate = "23 feb 2024",
 }: BlogCardProps) {
   return (
-    <div className="p-4 border-b border-slate-200 pb-2 ">
-      <div className="flex items-center mb-4">
-        <div className="flex flex-col justify-center">
-          <AvatorComponent name={authorName} />
+    <Link to={`/blog/${id}`}>
+      <div className="p-4 border-b border-slate-200 pb-2 max-w-screen-lg w-full cursor-pointer">
+        <div className="flex items-center mb-4">
+          <div className="flex flex-col justify-center">
+            <AvatorComponent name={authorName} />
+          </div>
+          <div className="font-light pl-2 text-sm ">{authorName}</div>
+          <div className="pl-2">
+            <Circle />
+          </div>
+          <div className=" text-slate-400 pl-2 text-sm">{publishedDate}</div>
         </div>
-        <div className="font-light pl-2 text-sm ">{authorName}</div>
-        <div className="pl-2">
-          <Circle />
+        <div className="font-bold text-2xl">{title}</div>
+        <div className="font-regular text-slate-500 text-md mt-1">
+          {content.slice(0, 100) + "..."}
         </div>
-        <div className=" text-slate-400 pl-2 text-sm">{publishedDate}</div>
+        <div className="text-slate-500 text-xs my-4">
+          {Math.ceil(content.length / 100) + " minutes read"}
+        </div>
       </div>
-      <div className="font-bold text-2xl">{title}</div>
-      <div className="font-regular text-slate-500 text-md mt-1">
-        {content.slice(0, 100) + "..."}
-      </div>
-      <div className="text-slate-500 text-xs my-4">
-        {Math.ceil(content.length / 100) + " minutes read"}
-      </div>
-    </div>
+    </Link>
   );
 }
 

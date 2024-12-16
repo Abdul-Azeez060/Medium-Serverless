@@ -12,22 +12,22 @@ interface blog {
   };
 }
 
-function useBlogs() {
+function useBlog(id: string) {
   const [loading, setLoading] = useState(true);
-  const [blogs, setBlogs] = useState<blog[]>([]);
+  const [blog, setBlog] = useState<blog>();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log(token);
 
     axios
-      .get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+      .get(`${BACKEND_URL}/api/v1/blog/${id}`, {
         headers: {
           Authorization: token,
         },
       })
       .then((response) => {
-        setBlogs(response.data?.posts);
+        setBlog(response.data?.post);
         setLoading(false);
       })
       .catch((err) => {
@@ -37,8 +37,8 @@ function useBlogs() {
 
   return {
     loading,
-    blogs,
+    blog,
   };
 }
 
-export default useBlogs;
+export default useBlog;

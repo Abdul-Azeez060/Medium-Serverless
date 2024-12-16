@@ -18,6 +18,7 @@ function Auth({ type }: { type: "signin" | "signup" }) {
         type === "signin" ? "signin" : "signup"
       }`;
       const response = await axios.post(URL, postInputs);
+      console.log(response.data);
       if (response.data.error) {
         alert("enter correct input fields");
         return;

@@ -110,6 +110,17 @@ blog.get("/:id", async (c) => {
       where: {
         id,
       },
+      select: {
+        content: true,
+        id: true,
+        title: true,
+        published: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
     return c.json({
       post,
